@@ -1,4 +1,4 @@
-# Copyright 2022 DeepMind Technologies Limited
+# Copyright 2023 DeepMind Technologies Limited
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,7 +22,8 @@ from einshape import jax_einshape as einshape
 import haiku as hk
 import jax
 from jax import numpy as jnp
-import perceiver_helpers
+
+from hierarchical_perceiver import perceiver_helpers
 
 BATCH_DIM = 0
 GROUPS_DIM = 1
@@ -395,10 +396,12 @@ class PerceiverBlock(hk.Module):
 
     assert (
         num_output_channels % num_self_attend_heads == 0
-    ), f'num_self_attend_heads ({num_self_attend_heads}) should divide num_output_channels ({num_output_channels}) evenly'
+    ), (f'num_self_attend_heads ({num_self_attend_heads})'
+        f'should divide num_output_channels ({num_output_channels}) evenly')
     assert (
         num_output_channels % num_cross_attend_heads == 0
-    ), f'num_cross_attend_heads ({num_cross_attend_heads}) should divide num_output_channels ({num_output_channels}) evenly'
+    ), (f'num_cross_attend_heads ({num_cross_attend_heads})'
+        f'should divide num_output_channels ({num_output_channels}) evenly')
 
     self.projector = HiPCrossAttention(
         activation_name=activation_name,
@@ -522,7 +525,10 @@ class Embedder(hk.Module):
     assert self._orig_channels is not None, 'Must call embed() first.'
     assert (
         list(inputs.keys()) == list(self._orig_channels.keys())
-    ), f'Modality names must be consistent. Expected {self._orig_channels.keys()}; found {inputs.keys()}.'
+    ), (
+        f'Modality names must be consistent. '
+        f'Expected {self._orig_channels.keys()}; '
+        f'found {inputs.keys()}.')
 
     out = {}
     for modality_name, value in inputs.items():

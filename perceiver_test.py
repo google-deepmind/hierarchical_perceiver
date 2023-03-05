@@ -1,4 +1,4 @@
-# Copyright 2022 DeepMind Technologies Limited
+# Copyright 2023 DeepMind Technologies Limited
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,8 +24,9 @@ import jax
 from ml_collections import config_dict
 import numpy as np
 from parameterized import parameterized
-import perceiver
-import perceiver_helpers
+
+from hierarchical_perceiver import perceiver
+from hierarchical_perceiver import perceiver_helpers
 
 
 def mock_data():

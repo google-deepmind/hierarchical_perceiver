@@ -1,4 +1,4 @@
-# Copyright 2022 DeepMind Technologies Limited
+# Copyright 2023 DeepMind Technologies Limited
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,8 +23,8 @@ import chex
 import haiku as hk
 from jax import numpy as jnp
 
-import perceiver_blocks
-import perceiver_helpers
+from hierarchical_perceiver import perceiver_blocks
+from hierarchical_perceiver import perceiver_helpers
 
 PERCEIVER_MODULE_NAME = 'perceiver'
 

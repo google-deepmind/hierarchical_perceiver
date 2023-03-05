@@ -1,4 +1,4 @@
-# Copyright 2022 DeepMind Technologies Limited
+# Copyright 2023 DeepMind Technologies Limited
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -57,7 +57,7 @@ def f32_softmax(x: chex.Array) -> chex.Array:
     return jax.nn.softmax(x)
 
 
-def layer_norm(x: chex.Array, name: Optional[str] = None) -> hk.LayerNorm:
+def layer_norm(x: chex.Array, name: Optional[str] = None) -> jax.Array:
   return hk.LayerNorm(axis=-1, create_scale=True, create_offset=True,
                       name=name)(x)
 
@@ -123,7 +123,8 @@ def assign_groups_to_modalities(
   num_modalities = len(index_dim_per_modality)
   if num_modalities > num_groups:
     raise ValueError(
-        f'{num_modalities} > {num_groups}. Can\'t yet deal with groups that have '
+        f'{num_modalities} > {num_groups}.'
+        'Can\'t yet deal with groups that have '
         'multiple modalities.')
   extra_groups = num_groups - num_modalities
   # Assign extra groups to each modality proportionally to the number of points
