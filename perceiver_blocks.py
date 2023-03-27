@@ -428,7 +428,7 @@ class PerceiverBlock(hk.Module):
                is_training: bool,
                pre_attention_residual: Optional[chex.ArrayTree] = None,
                attention_mask: Optional[chex.Array] = None) -> chex.ArrayTree:
-    assert len(inputs.shape) == 4  # (batch, groups, index, channels)
+    assert len(inputs.shape) == 4  # (batch, groups, index, channels)  # pytype: disable=attribute-error  # numpy-scalars
 
     if is_training:
       output_index_dim = self.output_index_dim_train
@@ -444,19 +444,19 @@ class PerceiverBlock(hk.Module):
           num_output_groups=self.num_output_groups,
           regroup_type=self.regroup_type)
     else:
-      chex.assert_equal(inputs.shape[GROUPS_DIM], self.num_output_groups)
+      chex.assert_equal(inputs.shape[GROUPS_DIM], self.num_output_groups)  # pytype: disable=attribute-error  # numpy-scalars
 
     z = self.projector(
         inputs=inputs,
         pre_attention_residual=pre_attention_residual,
         is_training=is_training,
         attention_mask=attention_mask)
-    chex.assert_shape(z, (inputs.shape[BATCH_DIM], self.num_output_groups,
+    chex.assert_shape(z, (inputs.shape[BATCH_DIM], self.num_output_groups,  # pytype: disable=attribute-error  # numpy-scalars
                           output_index_dim, self.num_output_channels))
 
     for self_attend in self.self_attentions:
       z = self_attend(z, is_training=is_training)
-      chex.assert_shape(z, (inputs.shape[BATCH_DIM], self.num_output_groups,
+      chex.assert_shape(z, (inputs.shape[BATCH_DIM], self.num_output_groups,  # pytype: disable=attribute-error  # numpy-scalars
                             output_index_dim, self.num_output_channels))
 
     return z

@@ -253,7 +253,7 @@ class PerceiverIO(hk.Module):
     z_out = grouper.ungroup(z)
 
     output_keys = perceiver_helpers.ModelOutputKeys
-    return {
+    return {  # pytype: disable=bad-return-type  # numpy-scalars
         output_keys.INPUT_RECONSTRUCTION: reconstruction_output,
         output_keys.LATENTS: z_out,
     }
@@ -422,7 +422,7 @@ class HiP(hk.Module):
     z_out = grouper.ungroup(z)
 
     output_keys = perceiver_helpers.ModelOutputKeys
-    return {
+    return {  # pytype: disable=bad-return-type  # numpy-scalars
         output_keys.INPUT_RECONSTRUCTION: reconstruction_output,
         output_keys.LATENTS: z_out,
     }
@@ -636,7 +636,7 @@ class HiPClassBottleneck(hk.Module):
         rh_class = perceiver_blocks.ReconstructionHead()
         for k, v in mae_query_class.items():
           # Reconstruct the class-label inputs
-          assert z.shape[perceiver_blocks.GROUPS_DIM] == 1
+          assert z.shape[perceiver_blocks.GROUPS_DIM] == 1  # pytype: disable=attribute-error  # numpy-scalars
           z_out_class = rh_class(z, mae_query=v, is_training=is_training)
           z_out_class = grouper_class[k].ungroup(z_out_class)
           output_class.update(embedder_class[k].unembed(z_out_class))
@@ -651,7 +651,7 @@ class HiPClassBottleneck(hk.Module):
     z_out = grouper.ungroup(z)
 
     output_keys = perceiver_helpers.ModelOutputKeys
-    return {
+    return {  # pytype: disable=bad-return-type  # numpy-scalars
         output_keys.INPUT_RECONSTRUCTION: reconstruction_output,
         output_keys.LATENTS: z_out,
     }

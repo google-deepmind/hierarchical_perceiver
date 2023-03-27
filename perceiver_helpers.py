@@ -180,7 +180,7 @@ class StochasticDepth(hk.Module):
 
   def __call__(self, x: chex.Array, is_training: bool) -> jnp.ndarray:
     if not is_training:
-      return x
+      return x  # pytype: disable=bad-return-type  # numpy-scalars
     batch_size = x.shape[0]
     r = jax.random.uniform(
         hk.next_rng_key(),
