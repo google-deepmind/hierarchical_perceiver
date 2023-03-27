@@ -56,8 +56,8 @@ The core HiP architecture implementation can be found in `perceiver.py`.
 
 ## Pre-trained checkpoints and Colab
 
-Around January 2023, we will release pre-trained checkpoints in [this](https://storage.googleapis.com/dm-detcon/dm-hierarchical-perceiver) Google Cloud Storage bucket, and
-a Colab demonstrating inference using these checkpoints.
+We hope to release pre-trained checkpoints in [this](https://storage.googleapis.com/dm-hierarchical-perceiver) Google Cloud Storage bucket, and
+a Colab demonstrating inference using these checkpoints in due time.
 
 ## Citing this work
 
