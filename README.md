@@ -20,10 +20,10 @@ To create and activate a virtualenv and install all necessary dependencies, run:
 python3 -m venv /tmp/hip_venv
 source /tmp/hip_venv/bin/activate
 pip3 install pip setuptools wheel
-pip3 install -r requirements_gpu.txt
+pip3 install -r requirements_gpu_with_hashes.txt
 ```
 
-`requirements_gpu.txt` will require a working CUDA installation, and `nvidia-cuda-toolkit` installed. Otherwise, you can replace this with `requirements_cpu.txt` which does not have this dependency.
+`requirements_gpu_with_hashes.txt` will require a working CUDA installation, and `nvidia-cuda-toolkit` installed. Otherwise, you can replace this with `requirements_cpu_with_hashes.txt` which does not have this dependency.
 
 Running `python3 -m unittest -v perceiver_test` after this will run a suite of
 tests that demonstrates running the HiP architecture on sample multimodal data.

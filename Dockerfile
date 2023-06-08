@@ -69,14 +69,16 @@ ENV FORCE_CUDA 1
 SHELL ["/bin/bash", "-l", "-c"]
 
 WORKDIR $HOME
-RUN pip3 install pip setuptools wheel
 
 # Copy in the code to open-source
-COPY --chown=$uid:$gid ./requirements_gpu.txt $HOME/
+COPY --chown=$uid:$gid ./requirements_all_with_hashes.txt $HOME/
+COPY --chown=$uid:$gid ./requirements_gpu_with_hashes.txt $HOME/
+COPY --chown=$uid:$gid ./requirements_cpu_with_hashes.txt $HOME/
 COPY --chown=$uid:$gid ./perceiver_helpers.py $HOME/
 COPY --chown=$uid:$gid ./perceiver_blocks.py $HOME/
 COPY --chown=$uid:$gid ./perceiver_test.py $HOME/
 COPY --chown=$uid:$gid ./perceiver.py $HOME/
 
 # install any extra Python requirements defined in requirements.txt
-RUN pip3 install -r requirements_gpu.txt
+RUN pip3 install --require-hashes -r requirements_all_with_hashes.txt
+RUN pip3 install --require-hashes -r requirements_gpu_with_hashes.txt
